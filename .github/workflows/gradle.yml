@@ -25,3 +25,13 @@ jobs:
 
     - name: Build with Gradle
       run: gradle build
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: 'ap-northeast-2' 
+   
+    - name: Upload artifact to S3
+      run: aws s3 cp build/libs/yoonjae-0.0.1-SNAPSHOT.jar s3://edu-uplus-test/yoonjae_jar/seongheon-1.0-SNAPSHOT.jar
